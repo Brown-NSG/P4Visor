@@ -1,0 +1,110 @@
+./00-final/n30_0.1_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 7333
+- size: 17
+- solution: 0 1 2 3 4 5 6 7 9 10 11 14 16 20 21 25 29 
+- total processing time (s): 0.133162
+
+
+./00-final/n30_0.2_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 5246
+- size: 11
+- solution: 1 2 4 5 6 8 12 15 21 23 25 
+- total processing time (s): 0.152538
+
+
+./00-final/n30_0.3_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 5144
+- size: 8
+- solution: 0 1 4 5 6 21 25 28 
+- total processing time (s): 0.157358
+
+
+./00-final/n30_0.4_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 6144
+- size: 6
+- solution: 0 1 2 3 4 5 
+- total processing time (s): 0.157399
+
+
+./00-final/n50_0.1_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 9486
+- size: 17
+- solution: 0 2 3 4 6 7 8 9 11 14 18 34 35 41 44 47 49 
+- total processing time (s): 0.162898
+
+
+./00-final/n50_0.2_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 9258
+- size: 13
+- solution: 0 1 3 4 6 7 8 9 11 14 15 23 24 
+- total processing time (s): 0.170335
+
+
+./00-final/n50_0.3_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 7261
+- size: 10
+- solution: 0 1 6 8 9 10 11 14 25 43 
+- total processing time (s): 0.179666
+
+
+./00-final/n50_0.4_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 7224
+- size: 9
+- solution: 0 4 5 6 8 9 10 24 47 
+- total processing time (s): 0.18297
+
+
+./00-final/n80_0.1_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 12789
+- size: 21
+- solution: 0 1 2 5 6 7 11 13 14 15 16 18 21 25 26 46 48 49 52 60 74 
+- total processing time (s): 0.18891
+
+
+./00-final/n80_0.2_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 9312
+- size: 12
+- solution: 3 4 5 6 8 9 11 14 16 35 41 62 
+- total processing time (s): 0.215662
+
+
+./00-final/n80_0.3_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 7412
+- size: 12
+- solution: 1 3 4 6 12 14 17 24 44 56 63 74 
+- total processing time (s): 0.209569
+
+
+./00-final/n80_0.4_gen.wmis
+Running simulated annealing algorithm.
+- best weight: 6220
+- size: 7
+- solution: 4 5 7 10 14 16 76 
+- total processing time (s): 0.218374
+
+
+./add_one_line_to_overall.py
+./detail_res-naive.txt
+./detail_res-opt.txt
+./gen_graph.py
+./get_data_plot.py
+./overall
+m_count = 0, m = -1 
+./reproduce_the_figure9b.py
+./sum_res-naive.txt
+./test_greedy_accuracy.sh
+./test_synth_p4_naive.sh
+./test_synth_p4_opt.sh
+./test_synth_p4_sa.sh
+./tmp

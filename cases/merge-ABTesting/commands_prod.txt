@@ -1,0 +1,10 @@
+table_set_default dmac _no_op
+table_set_default send_frame _no_op
+
+table_add dmac set_eport 00:aa:bb:00:00:00 => 2
+table_add dmac set_eport 00:04:00:00:00:00 => 2
+table_add dmac set_eport 00:04:00:00:00:01 => 2
+
+table_add send_frame rewrite_mac 1 => 00:aa:bb:00:00:11
+table_add send_frame rewrite_mac 2 => 00:aa:bb:00:00:22
+table_add send_frame rewrite_mac 3 => 00:aa:bb:00:00:33

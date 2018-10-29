@@ -1,0 +1,3 @@
+// table_set_default shadow_traffic_control goto_testing_pipe
+
+table_add shadow_traffic_control SP4_add_shadow_tag 00:04:00:00:00:01 =>

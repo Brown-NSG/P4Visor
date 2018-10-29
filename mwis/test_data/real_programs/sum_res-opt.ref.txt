@@ -1,0 +1,22 @@
+# Here is a reference best weight and runtime evaluation outputs:
+
+./v1+v2/egress_table_graph
+./v1+v3/egress_table_graph
+./v1+v4/egress_table_graph
+./v2+v3/egress_table_graph
+./v2+v4/egress_table_graph
+./v3+v4/egress_table_graph
+- best weight: 14199
+- best weight: 22391
+- best weight: 21879
+- best weight: 11144
+- best weight: 11656
+- best weight: 22408
+Average solution =  17279.5
+- total processing time (s): 550.729
+- total processing time (s): 56201.0
+- total processing time (s): 11400.3
+- total processing time (s): 30.7154
+- total processing time (s): 139.309
+- total processing time (s): 33679.8
+Average = 17000.3

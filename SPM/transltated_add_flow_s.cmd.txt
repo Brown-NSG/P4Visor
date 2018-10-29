@@ -1,0 +1,20 @@
+table_set_default send_frame _drop
+
+table_set_default forward_shadow _drop
+table_set_default ipv4_lpm_shadow _drop
+
+# table_set_default forward_shadow_shadow _drop
+# table_set_default ipv4_lpm_shadow_shadow _drop
+
+
+table_add forward_shadow set_dmac 10.0.0.10 => 00:04:00:00:00:20
+table_add forward_shadow set_dmac 10.0.1.10 => 00:04:00:00:00:21
+table_add ipv4_lpm_shadow set_nhop_p 10.0.0.10/32 => 10.0.0.10 1
+table_add ipv4_lpm_shadow set_nhop_p 10.0.1.10/32 => 10.0.1.10 2
+
+table_add forward_shadow_shadow set_dmac 10.0.0.10 => 00:04:00:00:00:22
+table_add forward_shadow_shadow set_dmac 10.0.1.10 => 00:04:00:00:00:23
+table_add ipv4_lpm_shadow_shadow set_nhop_p 10.0.0.10/32 => 10.0.0.10 3
+table_add ipv4_lpm_shadow_shadow set_nhop_p 10.0.1.10/32 => 10.0.1.10 3
+
+ 

@@ -1,0 +1,110 @@
+./00-final/n30_0.1_gen.wmis
+Running naive greedy algorithm.
+- best weight: 5275
+- size: 16
+- solution: 0 1 2 3 6 7 9 10 11 14 17 20 21 25 27 29 
+- total processing time (s): 0.10004
+
+
+./00-final/n30_0.2_gen.wmis
+Running naive greedy algorithm.
+- best weight: 2247
+- size: 12
+- solution: 2 6 8 10 11 18 19 20 22 25 26 28 
+- total processing time (s): 0.1
+
+
+./00-final/n30_0.3_gen.wmis
+Running naive greedy algorithm.
+- best weight: 1052
+- size: 8
+- solution: 0 7 10 19 22 25 26 29 
+- total processing time (s): 0.1
+
+
+./00-final/n30_0.4_gen.wmis
+Running naive greedy algorithm.
+- best weight: 1129
+- size: 6
+- solution: 4 7 9 14 21 29 
+- total processing time (s): 0.100033
+
+
+./00-final/n50_0.1_gen.wmis
+Running naive greedy algorithm.
+- best weight: 4560
+- size: 21
+- solution: 0 6 7 8 12 14 19 20 21 22 24 26 32 34 35 36 40 41 44 45 49 
+- total processing time (s): 0.1
+
+
+./00-final/n50_0.2_gen.wmis
+Running naive greedy algorithm.
+- best weight: 2260
+- size: 14
+- solution: 7 11 15 19 20 23 24 26 28 35 40 43 46 48 
+- total processing time (s): 0.100073
+
+
+./00-final/n50_0.3_gen.wmis
+Running naive greedy algorithm.
+- best weight: 1167
+- size: 9
+- solution: 3 18 22 23 28 31 32 39 40 
+- total processing time (s): 0.100087
+
+
+./00-final/n50_0.4_gen.wmis
+Running naive greedy algorithm.
+- best weight: 1142
+- size: 7
+- solution: 5 23 24 31 43 47 49 
+- total processing time (s): 0.100036
+
+
+./00-final/n80_0.1_gen.wmis
+Running naive greedy algorithm.
+- best weight: 4771
+- size: 21
+- solution: 4 10 14 18 21 22 26 29 34 39 51 53 60 62 64 66 67 71 74 75 76 
+- total processing time (s): 0.100033
+
+
+./00-final/n80_0.2_gen.wmis
+Running naive greedy algorithm.
+- best weight: 1596
+- size: 14
+- solution: 3 23 30 37 42 43 46 49 54 57 65 66 69 74 
+- total processing time (s): 0.100035
+
+
+./00-final/n80_0.3_gen.wmis
+Running naive greedy algorithm.
+- best weight: 423
+- size: 12
+- solution: 26 28 33 43 48 51 54 58 61 66 68 72 
+- total processing time (s): 0.100038
+
+
+./00-final/n80_0.4_gen.wmis
+Running naive greedy algorithm.
+- best weight: 338
+- size: 8
+- solution: 28 32 42 58 61 67 69 77 
+- total processing time (s): 0.100039
+
+
+./add_one_line_to_overall.py
+./detail_res-opt.txt
+./detail_res-sa.txt
+./gen_graph.py
+./get_data_plot.py
+./overall
+m_count = 0, m = -1 
+./reproduce_the_figure9b.py
+./sum_res-sa.txt
+./test_greedy_accuracy.sh
+./test_synth_p4_naive.sh
+./test_synth_p4_opt.sh
+./test_synth_p4_sa.sh
+./tmp

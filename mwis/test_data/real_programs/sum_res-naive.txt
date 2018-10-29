@@ -1,0 +1,38 @@
+./v1+v2/egress_table_graph
+./v1+v3/egress_table_graph
+./v1+v4/egress_table_graph
+./v2+v3/egress_table_graph
+./v2+v4/egress_table_graph
+./v3+v4/egress_table_graph
+./v1+v2/ingress_table_graph
+./v1+v3/ingress_table_graph
+./v1+v4/ingress_table_graph
+./v2+v3/ingress_table_graph
+./v2+v4/ingress_table_graph
+./v3+v4/ingress_table_graph
+- best weight: 14199
+- best weight: 22391
+- best weight: 21879
+- best weight: 11144
+- best weight: 11656
+- best weight: 22408
+- best weight: 46294
+- best weight: 54489
+- best weight: 47833
+- best weight: 44246
+- best weight: 38102
+- best weight: 45273
+Average solution =  31659.5
+- total processing time (s): 0.100029
+- total processing time (s): 0.100026
+- total processing time (s): 0.1
+- total processing time (s): 0.100025
+- total processing time (s): 0.100024
+- total processing time (s): 0.1
+- total processing time (s): 0.10004
+- total processing time (s): 0.100037
+- total processing time (s): 0.100044
+- total processing time (s): 0.100062
+- total processing time (s): 0.100052
+- total processing time (s): 0.1
+Average total time =  0.100028

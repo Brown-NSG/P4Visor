@@ -1,0 +1,10 @@
+table_set_default shadow_traffic_control goto_production_pipe
+
+table_add shadow_traffic_control SP4_add_shadow_tag 00:04:00:00:00:01 =>
+
+
+
+table_set_default recirculate_table _recirculate_pkt
+table_set_default record_production_result _rcd_production_result
+table_set_default record_shadow_result _rcd_shadow_result
+table_set_default handle_comparator_error _send_pkt_to_controller 3

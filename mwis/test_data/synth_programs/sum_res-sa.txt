@@ -1,0 +1,68 @@
+small/n20_0.02_gen.wmis
+small/n20_0.04_gen.wmis
+small/n30_0.02_gen.wmis
+small/n30_0.04_gen.wmis
+small/n40_0.02_gen.wmis
+small/n40_0.04_gen.wmis
+small/n50_0.02_gen.wmis
+small/n50_0.04_gen.wmis
+large/n60_0.1_gen.wmis
+large/n70_0.1_gen.wmis
+large/n60_0.2_gen.wmis
+large/n80_0.1_gen.wmis
+large/n70_0.2_gen.wmis
+large/n80_0.2_gen.wmis
+large/n120_0.1_gen.wmis
+large/n120_0.2_gen.wmis
+large/n240_0.1_gen.wmis
+large/n240_0.2_gen.wmis
+large/n480_0.1_gen.wmis
+large/n480_0.2_gen.wmis
+large/n1000_0.1_gen.wmis
+large/n1000_0.2_gen.wmis
+- best weight: 5224
+- best weight: 5220
+- best weight: 6346
+- best weight: 6393
+- best weight: 9631
+- best weight: 7545
+- best weight: 11859
+- best weight: 9789
+- best weight: 9679
+- best weight: 12761
+- best weight: 7447
+- best weight: 45578
+- best weight: 10381
+- best weight: 41090
+- best weight: 66245
+- best weight: 57625
+- best weight: 100627
+- best weight: 70423
+- best weight: 138591
+- best weight: 86872
+- best weight: 189406
+- best weight: 112129
+Average solution =  45948.2
+- total processing time (s): 0.117857
+- total processing time (s): 0.135354
+- total processing time (s): 0.135478
+- total processing time (s): 0.132551
+- total processing time (s): 0.128051
+- total processing time (s): 0.141527
+- total processing time (s): 0.14483
+- total processing time (s): 0.15199
+- total processing time (s): 0.175832
+- total processing time (s): 0.195445
+- total processing time (s): 0.19132
+- total processing time (s): 0.194017
+- total processing time (s): 0.202576
+- total processing time (s): 0.205715
+- total processing time (s): 0.247987
+- total processing time (s): 0.226747
+- total processing time (s): 0.288354
+- total processing time (s): 0.333816
+- total processing time (s): 0.489202
+- total processing time (s): 0.590415
+- total processing time (s): 0.972306
+- total processing time (s): 1.45552
+Average total time =  0.311677

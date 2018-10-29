@@ -1,0 +1,10 @@
+table_set_default send_frame_SHADOW _drop_SHADOW
+table_set_default forward_SHADOW _drop_SHADOW
+table_set_default ipv4_lpm_SHADOW _drop_SHADOW
+table_add send_frame_SHADOW rewrite_mac_SHADOW 1 => 00:aa:bb:00:00:00
+table_add send_frame_SHADOW rewrite_mac_SHADOW 2 => 00:aa:bb:00:00:01
+table_add send_frame_SHADOW rewrite_mac_SHADOW 3 => 00:aa:bb:00:00:01
+table_add forward_SHADOW set_dmac_SHADOW 10.0.0.10 => 00:04:00:00:00:00
+table_add forward_SHADOW set_dmac_SHADOW 10.0.1.10 => 00:04:00:00:00:01
+table_add ipv4_lpm_SHADOW set_nhop_SHADOW 10.0.0.10/32 => 10.0.0.10 1
+table_add ipv4_lpm_SHADOW set_nhop_SHADOW 10.0.1.10/32 => 10.0.1.10 2

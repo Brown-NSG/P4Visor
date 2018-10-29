@@ -1,0 +1,7 @@
+_drop  _drop_SHADOW
+set_nhop  set_nhop_SHADOW
+ipv4_lpm  ipv4_lpm_SHADOW
+set_dmac  set_dmac_SHADOW
+forward  forward_SHADOW
+rewrite_mac  rewrite_mac_SHADOW
+send_frame  send_frame_SHADOW
