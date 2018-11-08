@@ -1,23 +1,23 @@
-In this file, we show 1) the main features of ShadowP4 currently supported; 2) how to run the code step-by-step to produce the main experiment results on Bmv2 target.
 
-## ShadowP4 Overview
-ShadowP4 is a framework containing two primitives: building modular P4 programs by code merge and testing P4 programs with flexible operators. Specifically, the main features supported in the repository are shown below.
+## P4Visor Overview
+P4Visor is a framework containing two primitives: building modular P4 programs by code merge and testing P4 programs with flexible operators. Specifically, the main features supported in the repository are shown below.
 
 For merging P4 programs:
-- ShadowP4 Compiler can merge two P4 programs to one fully automated. The merged P4 program allows the two P4 programs running side by side in single P4 target Bmv2. 
-- ShadowP4 Management provides runtime messages translation between the control plane and the merged P4 Programs, and uses the ShadowConfiguration to determine how to appropriately modify the messages.
+- P4Visor Compiler can merge two P4 programs to one fully automated. The merged P4 program allows the two P4 programs running side by side in single P4 target Bmv2. 
+- P4Visor Management provides runtime messages translation between the control plane and the merged P4 Programs, and uses the ShadowConfiguration to determine how to appropriately modify the messages.
 
 For testing operators:
 - A-B testing operator. The traffic for A-B testing is configurable at runtime through flow entry in STC table. 
 - Differential testing operator. Similar with A-B testing, traffic can be split across all versions and the output is compared, as described in the paper.
 
-Besides, we will give a step-by-step guide to show the workflow of ShadowP4 and how to run real traffic on the it.
+Besides, we will give a step-by-step guide to show the workflow of P4Visor and how to run real traffic on the it.
 
-Note this is the preliminary prototype of ShadowP4 implementation. The code may changes in the future evolution.
+Note this is the preliminary prototype of P4Visor implementation. The code may changes in the future evolution.
+The latest version of P4Visor can be found [https://github.com/Brown-NSG/P4Visor](https://github.com/Brown-NSG/P4Visor).
 
 ## 1. Merging P4 programs
 
-### ShadowP4 merging interface
+### P4Visor merging interface
 The following is the commands to merge two P4 program with notes to inputs:
 ```
 usage: ShadowP4c-bmv2.py [-h] [--real_source source]
@@ -25,7 +25,7 @@ usage: ShadowP4c-bmv2.py [-h] [--real_source source]
                          [--json_mg JSON_MG] [--gen_dir GEN_DIR] [--json JSON]
                          [--gen-fig] [--version] [--primitives PRIMITIVES]
 
-ShadowP4 compiler bmv2 (optional) arguments:
+P4Visor compiler bmv2 (optional) arguments:
   -h, --help            show this help message and exit
   --real_source source  A source file to include in the P4 program.
   --shadow_source SHADOW_SOURCE
@@ -43,7 +43,7 @@ ShadowP4 compiler bmv2 (optional) arguments:
   --Diff-testing         Merging for Differential Testing case
 ```
 
-The output is a JSON configuration for the P4 target bmv4 switch, as well as a configuration file `ShadowP4Configure` in the generated directory. 
+The output is a JSON configuration for the P4 target bmv4 switch, as well as a configuration file `P4VisorConfigure` in the generated directory. 
 
 SPM can translate the control messages, such as the flow entry add messages. More detail are in `SPM` directory.
 <!-- 
@@ -56,7 +56,7 @@ python ShadowP4c-bmv2.py --real_source         cases/merge-simple-AB/switch_prod
                          --AB-testing
 ```
 #### Shadow configure management and agent
-ShadowP4 compiler will generate a ShadowP4 configure file in the generated directory, name `ShadowP4Configure`. SPM can translate the control messages, such as the flow entry add messages. More detail are in `SPM` directory. -->
+P4Visor compiler will generate a P4Visor configure file in the generated directory, name `P4VisorConfigure`. SPM can translate the control messages, such as the flow entry add messages. More detail are in `SPM` directory. -->
 
 
 ## 2. Supporting flexible testing operators
@@ -112,7 +112,7 @@ In this section, we give a step-by-step guide to demonstrate how to perform Diff
 
 - 3.0 Required dependencies
 
-To fully evaluate the ShadowP4 building and testing primitives, several dependencies are required:
+To fully evaluate the P4Visor building and testing primitives, several dependencies are required:
 <!-- - [p4-hlir](https://github.com/p4lang/p4-hlir/blob/master/README.md) -->
     - [p4c-bm](https://github.com/p4lang/p4c-bm)
     - [bmv2](https://github.com/p4lang/behavioral-model)
@@ -157,9 +157,9 @@ For the Differential testing case, we give three files in `cases/merge-DiffTesti
 
 `commands_STC.txt`: run-time example commands for shadow traffic control. 
 
-Note that, as those entries are used for the single P4 programs before merging, operates should translate them into entries adapted for the merged P4 program before configuring them according to `ShadowP4Configure`. SPM can make it with:
+Note that, as those entries are used for the single P4 programs before merging, operates should translate them into entries adapted for the merged P4 program before configuring them according to `P4VisorConfigure`. SPM can make it with:
 ```
-python SPM/SPM_translate_cmd.py -cfg cases/merge-DiffTesting/ShadowP4Configure -c cases/merge-DiffTesting/commands_test.txt -n cases/merge-DiffTesting/commands_test_new.txt
+python SPM/SPM_translate_cmd.py -cfg cases/merge-DiffTesting/P4VisorConfigure -c cases/merge-DiffTesting/commands_test.txt -n cases/merge-DiffTesting/commands_test_new.txt
 ```
 
 Next we can install those new commands. 

@@ -46,7 +46,7 @@ from p4_hlir.hlir.p4_sized_integer import p4_sized_integer
 
 _ShadowFlag_ = "_SHADOW"
 TestingVersion = 20000
-ShadowP4Configure = "ShadowP4Configure"
+ShadowP4Configure = "P4VisorConfigure"
 
 def _decode_list(data):
     rv = []

@@ -1,5 +1,5 @@
 #
-# ShadowP4 managment (SPM) and agent (SPA)
+# P4Visor managment (PVM) and agent (PVA)
 # 
 # Translate add_flow enties commands of the P4 programs before
 # merging to the new commands for the merged P4 program
@@ -10,10 +10,10 @@ import argparse
 
 
 def get_parser():    
-    parser = argparse.ArgumentParser('ShadowP4 management (SPM)')
+    parser = argparse.ArgumentParser('P4Visor management (PVM)')
 
     parser.add_argument('--shadow-config-file', '-cfg', dest='shadow_config_file', type=str,
-                         help='The generated shadow config file by SPC', required=True)
+                         help='The generated shadow config file by PVC', required=True)
     parser.add_argument('--commands', '-c', dest='commands_old', type=str,
                          help='The commands for programs before merging', required=True)
     parser.add_argument('--commands-new', '-n', dest='commands_new', type=str,

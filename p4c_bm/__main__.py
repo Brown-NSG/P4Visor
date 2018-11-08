@@ -41,7 +41,7 @@ import p4_hlir.graphs.dot as dot
 import SP4_merge
 
 def get_parser():
-    parser = argparse.ArgumentParser(description='ShadowP4 compiler bmv2 arguments')
+    parser = argparse.ArgumentParser(description='P4Visor compiler bmv2 arguments')
     parser.add_argument('--real_source', metavar='source', type=str,
                         help='A source file to include in the P4 program.')
 
