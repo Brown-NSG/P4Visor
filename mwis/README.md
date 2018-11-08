@@ -118,11 +118,11 @@ We can get the running time and accuracy of SA heuristic by comparing the result
 
 The running times of the three algorithms lie in `sum_res-*.txt` files. By comparing the running times of the three algorithms, we can find that SA heuristic has good efficiency for large graphs with even 1000 nodes: both SA heuristic and naive greedy can merge P4 programs graphs within seconds. However, BK optimal algorithm is not scalable with graph size: usually, it can not return results for large graphs with more than 80 nodes within 7 days.
 
-Figure 8 "The runtimes of three merging approaches" can be generated from the outputs. Specifically, results in Figure 8a 'real program runtime' can be generated from the data in files 1) `real_programs/sum_res-sa.txt` line 26-31; 2) `real_programs/sum_res-naive.txt` line 26-31; 3) `real_programs/sum_res-opt.txt` where lines marked with 'total processing time' (it may take 1-2 days to produce this file). 
+Figure 'Runtime of program merging approaches' can be generated from the outputs. Specifically, results in Figure 'Runtime of program merging approaches' (a) can be generated from the data in files 1) `real_programs/sum_res-sa.txt` line 26-31; 2) `real_programs/sum_res-naive.txt` line 26-31; 3) `real_programs/sum_res-opt.txt` where lines marked with 'total processing time' (it may take 1-2 days to produce this file). 
 
-Similarly, results in Figure 8b 'synthetic program runtime' can be generated from the three files under the folder `synth_programs`. 1) `synth_programs/sum_res-sa.txt` lines 46-67; 2) `synth_programs/sum_res-naive.txt` lines 46-67; 3) `synth_programs/sum_res-opt.txt`, which may also take days to produce. 
+Similarly, results in Figure 'Runtime of program merging approaches' (b) can be generated from the three files under the folder `synth_programs`. 1) `synth_programs/sum_res-sa.txt` lines 46-67; 2) `synth_programs/sum_res-naive.txt` lines 46-67; 3) `synth_programs/sum_res-opt.txt`, which may also take days to produce. 
 
-We can use the following script to produce the runtime figure on synthetic like Figure 8b:
+We can use the following script to produce the runtime figure on synthetic programs:
 ```
 python plot_synth_runtime.py
 ```
@@ -131,18 +131,18 @@ python plot_synth_runtime.py
 
 To evaluate the accuracy of SA heuristic, we show that SA heuristic can find all the optimal solution for graphs less than 60 nodes (we can check larger graphs which takes more time). We can compare the outputs of SA heuristic with the optimal algorithm (Bron-Kerbosch) using the small graph size in both real programs (ingress graphs) and synthetic program graphs. 
 
-First, we can find that our heuristic can get all the optimal solutions produced by the BK optimal algorithm, as shown in Figure 9a: see the 'best weight' lines in file `synth_programs/sum_res-opt.txt`, which should be the same as the 'best weight' lines produced by heuristic in file `synth_programs/sum_res-sa.txt`. At the same time, naive greedy cannot find the best solution for most of the cases as shown in files `synth_programs/sum_res-naive.txt` and the accuracy (see lines 23-44 of `sum_res-naive.txt` and `sum_res-sa.txt`) decrease dramatically with the increase of the graph node number.
+First, we can find that our heuristic can get all the optimal solutions produced by the BK optimal algorithm: see the 'best weight' lines in file `synth_programs/sum_res-opt.txt`, which should be the same as the 'best weight' lines produced by heuristic in file `synth_programs/sum_res-sa.txt`. At the same time, naive greedy cannot find the best solution for most of the cases as shown in files `synth_programs/sum_res-naive.txt` and the accuracy (see lines 23-44 of `sum_res-naive.txt` and `sum_res-sa.txt`) decrease dramatically with the increase of the graph node number.
 
-Besides, we can find the accuracy of the naive greedy decrease with the increase in the graph density. With the increase of the program graph density (from 0.1 to 0.4), the accuracy of naive greedy keep decreasing. This can be observed by the following commands, as shown in Figure 9b: 
+Besides, we can find the accuracy of the naive greedy decrease with the increase in the graph density. With the increase of the program graph density (from 0.1 to 0.4), the accuracy of naive greedy keep decreasing. This can be observed by the following commands, as shown in Figure 'Accuracy of program merging approaches' (b): 
 ```
 cd test_data/synth_programs/naive_accuracy
 source test_greedy_accuracy.sh
 ``` 
 Here we can see the results in `naive_accuracy` folder: the lines 13-24 of files `synth_programs/naive_accuracy/sum_res-sa.txt` and `synth_programs/naive_accuracy/sum_res-naive.txt`. 
 
-Next, we can run the following command to extract results files and reproduce the figure 9a:
+Next, we can run the following command to extract results files and reproduce the figure 'Accuracy of program merging approaches' (b):
 ```
-python reproduce_the_figure9b.py
+python reproduce_the_accuracy.py
 ```
 
 Please note that each time we run the script `python gen_graph.py`, we will generate a different set of random graphs under the same parameters, such as density and size. A different set of the graphs may lead to slightly different runtime and accuracy, however, the conclusion always holds.

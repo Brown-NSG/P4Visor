@@ -87,7 +87,7 @@ def plot():
 
 	# save figure
 
-	fig.savefig('fig9a_naive_accuracy' + '.png')
+	fig.savefig('naive_accuracy' + '.png')
 
 	plt.show()
 
