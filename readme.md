@@ -45,7 +45,7 @@ P4Visor compiler bmv2 (optional) arguments:
 
 The output is a JSON configuration for the P4 target bmv4 switch, as well as a configuration file `P4VisorConfigure` in the generated directory. 
 
-SPM can translate the control messages, such as the flow entry add messages. More detail are in `SPM` directory.
+PVM can translate the control messages, such as the flow entry add messages. More detail are in `PVM` directory.
 <!-- 
 For example, we can compile the A-B testing demo by the following command, the merged output json file for bmv2 is `switch_merged.json`:
 ```
@@ -56,7 +56,7 @@ python ShadowP4c-bmv2.py --real_source         cases/merge-simple-AB/switch_prod
                          --AB-testing
 ```
 #### Shadow configure management and agent
-P4Visor compiler will generate a P4Visor configure file in the generated directory, name `P4VisorConfigure`. SPM can translate the control messages, such as the flow entry add messages. More detail are in `SPM` directory. -->
+P4Visor compiler will generate a P4Visor configure file in the generated directory, name `P4VisorConfigure`. PVM can translate the control messages, such as the flow entry add messages. More detail are in `PVM` directory. -->
 
 
 ## 2. Supporting flexible testing operators
@@ -157,9 +157,9 @@ For the Differential testing case, we give three files in `cases/merge-DiffTesti
 
 `commands_STC.txt`: run-time example commands for shadow traffic control. 
 
-Note that, as those entries are used for the single P4 programs before merging, operates should translate them into entries adapted for the merged P4 program before configuring them according to `P4VisorConfigure`. SPM can make it with:
+Note that, as those entries are used for the single P4 programs before merging, operates should translate them into entries adapted for the merged P4 program before configuring them according to `P4VisorConfigure`. PVM can make it with:
 ```
-python SPM/SPM_translate_cmd.py -cfg cases/merge-DiffTesting/P4VisorConfigure -c cases/merge-DiffTesting/commands_test.txt -n cases/merge-DiffTesting/commands_test_new.txt
+python PVM/PVM_translate_cmd.py -cfg cases/merge-DiffTesting/P4VisorConfigure -c cases/merge-DiffTesting/commands_test.txt -n cases/merge-DiffTesting/commands_test_new.txt
 ```
 
 Next we can install those new commands. 
@@ -187,7 +187,7 @@ xterm h1 h2 h3
 
 Second, we send testing traffic from `h1` to `h2` using tcpreply in xterm of `h1`:
 ```
-tcpreplay -i eth0 cases/pcap/h1-h2.pcap
+tcpreplay -i eth0 cases/pcap/h1-h2_1.pcap
 ```
 
 
