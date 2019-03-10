@@ -256,15 +256,17 @@ def main():
             primitives_res = 'primitives.json'
 
     ## 0. build shadow meta HLIR and json
-        
+        dir_path = os.path.dirname(os.path.realpath(__file__)) 
         if AB_T:
             testing_case = 1
-            print 'LOG|read AB testing meta'
-            h_meta = HLIR('p4c_bm/SP4_metas_ab.p4')
+            dir_path = dir_path + '/SP4_metas_ab.p4'
+            print 'LOG|read AB testing meta', dir_path
+            h_meta = HLIR(dir_path)
         elif DF_T:
             testing_case = 2
-            print 'LOG|read Diff testing meta'
-            h_meta = HLIR('p4c_bm/SP4_metas_diff.p4')
+            dir_path = dir_path + '/SP4_metas_diff.p4'
+            print 'LOG|read Diff testing meta', dir_path
+            h_meta = HLIR(dir_path)
         # if no -D__TARGET_* flag defined, we add a default bmv2 one
         if True not in map(lambda f: "-D__TARGET_" in f, preprocessor_args):
             h_meta.add_preprocessor_args("-D__TARGET_BMV2__")
@@ -274,7 +276,6 @@ def main():
         # in addition to standard P4 primitives
         more_primitives = json.loads(resource_string(__name__, primitives_res))
         h_meta.add_primitives(more_primitives)
-
         if AB_T:
             if not h_meta.build_shadow_metadata_AB(analyze=False):
                 print "ERR|p4c_bm|main|Error while building shadow metadata HLIR"
@@ -509,13 +510,18 @@ def main():
             print 'INFO|MAIN|call wmis:'
             gen_dir = args.gen_dir
             ingress_table_graph = os.path.join(gen_dir, "ingress_table_graph.csv")
+
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            dir_path_mwis = dir_path + '/../mwis/bin'
+
             # ingress_table_edge   = os.path.join(gen_dir, "ingress_table_edge.csv")
             ingress_res_file     = os.path.join(gen_dir, "ingress_wmis.res")
-            cmd = './mwis/bin/mwis '+ingress_table_graph+' -o '+ingress_res_file + " >> tmp/tmp.res"
+            cmd =  dir_path_mwis + '/mwis '+ingress_table_graph+' -o '+ingress_res_file + " >> /tmp/tmp.res"
             print cmd
             os.system(cmd)
 
-            cmd2 = './mwis/GWMIN_alg/bin/mwis '+ingress_table_graph+' '+ingress_res_file + " >> tmp/tmp.res"
+            dir_path_mwis = dir_path + '/../mwis/GWMIN_alg/bin'
+            cmd2 = dir_path_mwis + '/mwis '+ingress_table_graph+' '+ingress_res_file + " >> /tmp/tmp.res"
             print cmd2
             os.system(cmd2)
             # return

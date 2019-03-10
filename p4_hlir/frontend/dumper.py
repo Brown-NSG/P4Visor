@@ -46,7 +46,8 @@ from p4_hlir.hlir.p4_sized_integer import p4_sized_integer
 
 _ShadowFlag_ = "_SHADOW"
 TestingVersion = 20000
-ShadowP4Configure = "P4VisorConfigure"
+P4VisorConfigure = "P4VisorConfigure"
+P4VisorStatesConfigure = "P4VisorStatesConfigure"
 
 def _decode_list(data):
     rv = []
@@ -145,12 +146,15 @@ class P4HlirDumper:
 
     def dump_to_p4(self, hlir, p4_program, primitives, program_version=0, config_dir=None):
         if program_version == TestingVersion:
-            print '====================================20000======================================================='
+            print '====================================TestingVersion========================================='
             print '==========================================================================================='
             print '==========================================================================================='      
             if config_dir == None:
                 config_dir = "."
-            filename = os.path.join(config_dir, ShadowP4Configure)
+            filename = os.path.join(config_dir, P4VisorConfigure)
+            if os.path.exists(filename):
+                os.remove(filename)
+            filename = os.path.join(config_dir, P4VisorStatesConfigure)
             if os.path.exists(filename):
                 os.remove(filename)
         self._dump_std_primitives(hlir, _decode_dict(primitives))
@@ -198,11 +202,18 @@ def dump_to_p4_P4Program(self, hlir, program_version=0, config_dir=None):
 
         shadow_dump_type_set = [p4_hlir.frontend.ast.P4Counter, 
                                 p4_hlir.frontend.ast.P4Meter,
+                                p4_hlir.frontend.ast.P4Register,
                                 p4_hlir.frontend.ast.P4ControlFunction]
 
         if type(obj) is p4_hlir.frontend.ast.P4Table:
             obj.dump_to_p4(hlir, program_version=program_version, config_dir=config_dir)
         elif type(obj) is p4_hlir.frontend.ast.P4ActionFunction:
+            obj.dump_to_p4(hlir, program_version=program_version, config_dir=config_dir)
+        elif type(obj) is p4_hlir.frontend.ast.P4Register:
+            obj.dump_to_p4(hlir, program_version=program_version, config_dir=config_dir)
+        elif type(obj) is p4_hlir.frontend.ast.P4Counter:
+            obj.dump_to_p4(hlir, program_version=program_version, config_dir=config_dir)
+        elif type(obj) is p4_hlir.frontend.ast.P4Meter:
             obj.dump_to_p4(hlir, program_version=program_version, config_dir=config_dir)
 
         elif type(obj) is p4_hlir.frontend.ast.P4ActionCall:       
@@ -368,7 +379,7 @@ def dump_to_p4_P4ParserFunction(self, hlir):
     )
     g_parse_state._pragmas = self._pragmas.copy()
 
-def dump_to_p4_P4Counter(self, hlir, program_version=0):
+def dump_to_p4_P4Counter(self, hlir, program_version=0, config_dir=None):
     type_ = {
         "bytes": P4_COUNTER_BYTES,
         "packets": P4_COUNTER_PACKETS,
@@ -385,6 +396,26 @@ def dump_to_p4_P4Counter(self, hlir, program_version=0):
     saturating = "saturating" in self.attributes
     instance_count = self.instance_count.dump_to_p4(hlir) if self.instance_count else None
     min_width = self.min_width.dump_to_p4(hlir) if self.min_width else None
+
+    if program_version == TestingVersion:
+        rename_str = self.name + _ShadowFlag_
+        if config_dir == None:
+            config_dir = "."
+
+        filename = os.path.join(config_dir, P4VisorConfigure)
+        with open(filename, 'a+') as fp:
+            fp.write(self.name+'  ')
+            fp.write(rename_str+'\n')
+
+        filename = os.path.join(config_dir, P4VisorStatesConfigure)
+        with open(filename, 'a+') as fp:
+            fp.write('counter ')
+            fp.write(self.name+' ')
+            fp.write(rename_str+' ')
+            fp.write(str(instance_count)+'\n')
+        print 'LOG|Build SHADOW HLIR|dump to p4 register|Rename:', self.name, '-->', self.name + _ShadowFlag_
+        self.name = self.name + _ShadowFlag_
+
     g_counter = p4_counter(
         hlir,
         self.name,
@@ -398,7 +429,7 @@ def dump_to_p4_P4Counter(self, hlir, program_version=0):
     )
     g_counter._pragmas = self._pragmas.copy()
 
-def dump_to_p4_P4Meter(self, hlir, program_version=0):
+def dump_to_p4_P4Meter(self, hlir, program_version=0, config_dir=None):
     # TODO
     type_ = P4_COUNTER_BYTES if self.type_ == "bytes" else P4_COUNTER_PACKETS
     if self.direct_or_static:
@@ -412,6 +443,28 @@ def dump_to_p4_P4Meter(self, hlir, program_version=0):
     else:
         binding = None
     instance_count = self.instance_count.dump_to_p4(hlir) if self.instance_count else None
+
+
+    if program_version == TestingVersion:
+        rename_str = self.name + _ShadowFlag_
+        if config_mir == None:
+            config_dir = "."
+
+        filename = os.path.join(config_dir, P4VisorConfigure)
+        with open(filename, 'a+') as fp:
+            fp.write(self.name+'  ')
+            fp.write(rename_str+'\n')
+
+        filename = os.path.join(config_dir, P4VisorStatesConfigure)
+        with open(filename, 'a+') as fp:
+            fp.write('meter ')
+            fp.write(self.name+' ')
+            fp.write(rename_str+' ')
+            fp.write(str(instance_count)+'\n')
+        print 'LOG|Build SHADOW HLIR|dump to p4 Meter|Rename:', self.name, '-->', self.name + _ShadowFlag_
+        self.name = self.name + _ShadowFlag_
+
+
     g_meter = p4_meter(
         hlir,
         self.name,
@@ -424,11 +477,11 @@ def dump_to_p4_P4Meter(self, hlir, program_version=0):
     )
     g_meter._pragmas = self._pragmas.copy()
 
-def dump_to_p4_P4Register(self, hlir):
+def dump_to_p4_P4Register(self, hlir, program_version=0, config_dir=None):
     if self.direct_or_static:
         binding = (
             P4_DIRECT if self.direct_or_static[0] == "direct" else P4_STATIC,
-            self.direct_or_static[1].dump_to_p4(hlir)
+            self.direct_or_static[1].dump_to_p4(hlir, program_version=program_version)
         )
     else:
         binding = None
@@ -437,6 +490,26 @@ def dump_to_p4_P4Register(self, hlir):
     saturating = "saturating" in self.attributes
     signed = "signed" in self.attributes
     instance_count = self.instance_count.dump_to_p4(hlir) if self.instance_count else None
+
+    if program_version == TestingVersion:
+        rename_str = self.name + _ShadowFlag_
+        if config_dir == None:
+            config_dir = "."
+
+        filename = os.path.join(config_dir, P4VisorConfigure)
+        with open(filename, 'a+') as fp:
+            fp.write(self.name+'  ')
+            fp.write(rename_str+'\n')
+
+        filename = os.path.join(config_dir, P4VisorStatesConfigure)
+        with open(filename, 'a+') as fp:
+            fp.write('register ')
+            fp.write(self.name+' ')
+            fp.write(rename_str+' ')
+            fp.write(str(instance_count)+'\n')
+        print 'LOG|Build SHADOW HLIR|dump to p4 register|Rename:', self.name, '-->', self.name + _ShadowFlag_
+        self.name = self.name + _ShadowFlag_
+
     g_register = p4_register(
         hlir,
         self.name,
@@ -461,7 +534,7 @@ def dump_to_p4_P4ActionFunction(self, hlir, program_version=0, config_dir=None):
         rename_str = self.name + "  " + self.name + _ShadowFlag_ + "\n"
         if config_dir == None:
             config_dir = "."
-        filename = os.path.join(config_dir, ShadowP4Configure)
+        filename = os.path.join(config_dir, P4VisorConfigure)
         with open(filename, 'a+') as fp:
             fp.write(rename_str)
         print 'LOG|HLIR|frontend|Dumper|rename action function:', self.name, '-->', self.name + _ShadowFlag_
@@ -480,12 +553,19 @@ def dump_to_p4_P4ActionFunction(self, hlir, program_version=0, config_dir=None):
     g_action._pragmas = self._pragmas.copy()
 
 def dump_to_p4_P4ActionCall(self, hlir, program_version=0):
+    action_primitive = self.action.dump_to_p4(hlir, program_version=program_version)
     arg_list = [arg.dump_to_p4(hlir) for arg in self.arg_list]
-    # print '=====================================', 'program_version=', program_version 
-    # print 'type=', type(self), type(self.action) 
-    # print self.action.dump_to_p4(hlir, program_version=program_version)
-    # print arg_list 
-    return (self.action.dump_to_p4(hlir, program_version=program_version), arg_list)
+    # We change the args refer to registers for each primitves
+    # Important TODO: add more primitives
+    if program_version == TestingVersion:
+        if action_primitive == 'register_read':
+            arg_list[1] = arg_list[1] + _ShadowFlag_
+        elif action_primitive == 'register_write':
+            arg_list[0] = arg_list[0] + _ShadowFlag_
+        elif action_primitive == 'count':
+            arg_list[0] = arg_list[0] + _ShadowFlag_
+
+    return (action_primitive, arg_list)
 
 def dump_to_p4_P4Table(self, hlir, program_version=0, config_dir=None):
     # for read in self.reads:
@@ -526,7 +606,7 @@ def dump_to_p4_P4Table(self, hlir, program_version=0, config_dir=None):
         rename_str = self.name + "  " + self.name + _ShadowFlag_ + "\n"
         if config_dir == None:
             config_dir = "."
-        filename = os.path.join(config_dir, ShadowP4Configure)
+        filename = os.path.join(config_dir, P4VisorConfigure)
         with open(filename, 'a+') as fp:
             fp.write(rename_str)        
         print 'LOG|Build SHADOW HLIR|dump to p4 tables|Rename:', self.name, '-->', self.name + _ShadowFlag_
@@ -684,9 +764,9 @@ def dump_to_p4_P4ControlFunctionCall(self, hlir, program_version=0):
 def dump_to_p4_P4RefExpression(self, hlir, program_version=0):
     # For shadow program
     if program_version == TestingVersion:
-        print '====== DBG | 005 P4RefExpression is:', self.name
+        print '        DBG | 005 P4RefExpression is:', self.name
         if self.name in hlir.primitives.keys():
-            # print 'LOG|HLIR|frontend|dump P4Ref not remane primitives', self.name
+            print 'LOG|HLIR|frontend|dump P4Ref not remane primitives', self.name
             return self.name
 
         print 'LOG|HLIR|dump_to_p4_P4RefExpression|self.name:', \

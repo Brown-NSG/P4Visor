@@ -937,12 +937,16 @@ def set_parser_default_table_STC(p4_parse_states, h_mg):
     for _, parser_state in p4_parse_states.items():
         print 'DBG|SP4_merge|new parser names:', parser_state.name
         for branch_case, next_state in parser_state.branch_to.items():
+            
             if branch_case == p4_hlir.hlir.p4_parser.P4_DEFAULT:
                 if isinstance(next_state, p4_hlir.hlir.p4_tables.p4_conditional_node) or \
                    isinstance(next_state, p4_hlir.hlir.p4_tables.p4_table):
                     # TODO: check it
                     new_branch = "P4_DEFAULT", h_mg.p4_tables['shadow_traffic_control']
                     parser_state.branch_to[branch_case] = h_mg.p4_tables['shadow_traffic_control']
+            else:
+                # print 'DBG|SP4_Merge|Parser: type branch_case', type(branch_case), branch_case
+                pass
 
 
 def rename_parser_states(p4_parse_states, h_mg):
@@ -1024,7 +1028,7 @@ def merge_parser_states(h_mg, h_r, h_meta):
     ## 01 check the two P4 program start from the same parser state
     if 'start' not in h_mg.p4_parse_states.keys() or \
        'parse_ethernet' not in h_mg.p4_parse_states.keys():
-        print 'ERR|p4c_bm|SP4_merge: missing parse_ethernet in shadow P4 program'
+        print 'ERR|p4c_bm|SP4_merge: missing parse_ethernet in testing P4 program'
         raise(False)
     if 'start' not in h_r.p4_parse_states.keys() or \
        'parse_ethernet' not in h_mg.p4_parse_states.keys():
@@ -1034,6 +1038,12 @@ def merge_parser_states(h_mg, h_r, h_meta):
     ## 02 modify name of tables in shadow parser states: add '_shadow' suffix
     ## todo(low-priority): check if there are repeated parser state name
     rename_parser_states(h_mg.p4_parse_states, h_mg)
+
+    # Check wheather parser_eth_shadow has the transition key
+    # If not, create one for parse shadow tag
+    if len(h_mg.p4_parse_states['shadow_parse_ethernet'].branch_on) == 0:
+        h_mg.p4_parse_states['shadow_parse_ethernet'].branch_on = \
+                                h_meta.p4_parse_states['parse_ethernet'].branch_on
 
     ## 03 add meta parser state
     h_mg.p4_parse_states['parse_shadow_tag'] = h_meta.p4_parse_states['parse_shadow_tag']
@@ -1266,7 +1276,7 @@ def DF_merge_p4_tables(h_mg, h_r, h_s, h_meta):
 
     print 'LOG|MERGE|  Merged  tables', h_mg.p4_tables.keys()
     print 'LOG|MERGE|  Merged  conditions', h_mg.p4_conditional_nodes.keys()
-    print 'LOG|MERGE|  Merged  conditions', printOrderedDict( h_mg.p4_conditional_nodes)
+    # print 'LOG|MERGE|  Merged  conditions', printOrderedDict( h_mg.p4_conditional_nodes)
     print 'LOG|MERGE|  Merged  nodes', h_mg.p4_nodes.keys()
 
     assert(len(h_mg.p4_ingress_ptr) == 1)
@@ -1285,7 +1295,7 @@ def DF_merge_p4_tables(h_mg, h_r, h_s, h_meta):
     h_mg.p4_conditional_nodes["_condition_0"].next_[False] = h_mg.p4_nodes[ingress_ptr_s.name]
 
     # insert production ingress pipeline
-    print 'LOG|MERGE|8.2  Metadata conditions:', printOrderedDict(h_r.p4_nodes)
+    print 'LOG|MERGE|8.2  Nodes conditions:', printOrderedDict(h_r.p4_nodes)
     visited = set()
     DF_set_nodes_with_next_none(ingress_ptr_r, visited, h_mg.p4_nodes["_condition_1"])
     h_mg.p4_conditional_nodes["_condition_0"].next_[True] = h_mg.p4_nodes[ingress_ptr_r.name]
